@@ -1,4 +1,5 @@
 package app.entidades;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -20,7 +21,8 @@ public class Tarefa implements Registro {
         this(0, "", LocalDate.now(), LocalDate.now(), (byte) 0, 0, 0);
     }
 
-    public Tarefa(int id, String name, LocalDate createAt, LocalDate conclusionAt, byte status, int Prioridade, int idCategoria) {
+    public Tarefa(int id, String name, LocalDate createAt, LocalDate conclusionAt, byte status, int Prioridade,
+            int idCategoria) {
         this.id = id;
         this.name = name;
         this.createAt = createAt;
@@ -113,8 +115,8 @@ public class Tarefa implements Registro {
         DataOutputStream dos = new DataOutputStream(baos);
         dos.writeInt(getId());
         dos.writeUTF(getName());
-        dos.writeInt((int)this.createAt.toEpochDay());
-        dos.writeInt((int)this.conclusionAt.toEpochDay());
+        dos.writeInt((int) this.createAt.toEpochDay());
+        dos.writeInt((int) this.conclusionAt.toEpochDay());
         dos.writeUTF(getStatus());
         dos.writeInt(getPrioridade());
         dos.writeInt(getIdCategoria());
@@ -135,6 +137,8 @@ public class Tarefa implements Registro {
     }
 
     public String toString() {
-        return "ID: " + getId() + " | Nome: " + getName() + " | Data de Criação: " + getCreateAt() + " | Data de Conclusão: " + getConclusionAt() + " | Status: " + getStatus() + " | Prioridade: " + getPrioridade() + " | ID da Categoria: " + getIdCategoria();
+        return "ID: " + getId() + " | Nome: " + getName() + " | Data de Criação: " + getCreateAt()
+                + " | Data de Conclusão: " + getConclusionAt() + " | Status: " + getStatus() + " | Prioridade: "
+                + getPrioridade() + " | ID da Categoria: " + getIdCategoria();
     }
 }

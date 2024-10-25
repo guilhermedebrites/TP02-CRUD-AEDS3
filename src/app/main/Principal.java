@@ -1,11 +1,13 @@
 package app.main;
+
 import java.util.Scanner;
 
 import app.MenuCategorias;
 import app.MenuTarefas;
 
 public class Principal {
-    protected static Scanner console = new Scanner( System.in );
+    protected static Scanner console = new Scanner(System.in);
+
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
 
@@ -37,14 +39,13 @@ public class Principal {
         }
     }
 
-    protected static int ler_opcao( )
-    {
+    protected static int ler_opcao() {
         int opcao = 0;
         try {
-            opcao = Integer.valueOf( console.nextLine() );
-        } catch( NumberFormatException e ) {
+            opcao = Integer.valueOf(console.nextLine());
+        } catch (NumberFormatException e) {
             opcao = -1;
-        } 
+        }
         return opcao;
-    } 
+    }
 }

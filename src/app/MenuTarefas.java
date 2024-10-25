@@ -11,18 +11,16 @@ import app.entidades.Categoria;
 import app.entidades.Tarefa;
 import app.main.Principal;
 
-public class MenuTarefas extends Principal 
-{
+public class MenuTarefas extends Principal {
     private static ArquivoTarefa arqTarefas;
     private static ArquivoCategoria arqCategorias;
 
-    public MenuTarefas ( ) throws Exception {
+    public MenuTarefas() throws Exception {
         arqTarefas = new ArquivoTarefa();
         arqCategorias = new ArquivoCategoria();
     }
 
-    public static void menu ( ) 
-    {
+    public static void menu() {
         try {
             int opcao = 0;
             do {
@@ -30,13 +28,12 @@ public class MenuTarefas extends Principal
                 opcao = ler_opcao();
                 action(opcao);
             } while (opcao != 0);
-        } catch( Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } 
+        }
     }
 
-    protected static void opcoes_menu ( ) 
-    {
+    protected static void opcoes_menu() {
         System.out.println("\nAEDs-III 1.0           ");
         System.out.println("-------------------------");
         System.out.println("> Início > Tarefas       ");
@@ -46,11 +43,11 @@ public class MenuTarefas extends Principal
         System.out.println("4 - Excluir              ");
         System.out.println("5 - Buscar por Categoria ");
         System.out.println("0 - Voltar               ");
-        System.out.print  ("Opção: "                  );
+        System.out.print("Opção: ");
     }
 
     protected static void action(int opcao) {
-        switch( opcao ) {
+        switch (opcao) {
             case 0:
                 break;
             case 1:
@@ -66,196 +63,193 @@ public class MenuTarefas extends Principal
                 excluirTarefa();
                 break;
             case 5:
-                buscarTarefaPorCategoria( );
+                buscarTarefaPorCategoria();
                 break;
             default:
                 System.out.println("Opção inválida!");
                 break;
-        } 
+        }
     }
 
-    public static LocalDate formatarData ( String dataEmString ) {
+    public static LocalDate formatarData(String dataEmString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate data = null;
         try {
             data = LocalDate.parse(dataEmString, formatter);
-        } catch( DateTimeParseException e ) {
+        } catch (DateTimeParseException e) {
             System.out.println("\nFormato de data inválido. Por favor, use o formato dd/MM/yyyy.");
         }
         return data;
-    } 
+    }
 
-    private static void listarStatus ( ) {
+    private static void listarStatus() {
         System.out.println("\nEscolha um status:");
         System.out.println("1 - Pendente        ");
         System.out.println("2 - Em Andamento    ");
         System.out.println("3 - Concluída       ");
         System.out.println("4 - Cancelada       ");
         System.out.println("5 - Atrasada        ");
-        System.out.print  ("Status: "            );
+        System.out.print("Status: ");
     }
 
-    private static void listarPrioridades () {
-        System.out.println( "\nEscolha uma prioridade:" );
-        System.out.println( "1 - Muito Baixa          " );
-        System.out.println( "2 - Baixa                " );
-        System.out.println( "3 - Média                " );
-        System.out.println( "4 - Alta                 " );
-        System.out.println( "5 - Urgente              " );
-        System.out.print  ( "Prioridade: "              );
+    private static void listarPrioridades() {
+        System.out.println("\nEscolha uma prioridade:");
+        System.out.println("1 - Muito Baixa          ");
+        System.out.println("2 - Baixa                ");
+        System.out.println("3 - Média                ");
+        System.out.println("4 - Alta                 ");
+        System.out.println("5 - Urgente              ");
+        System.out.print("Prioridade: ");
     }
 
     private static void listarTarefas(List<Tarefa> lista) {
-        if( lista != null ) {
-            System.out.println( "\nLista de tarefas:" );
-            int tam = lista.size( );
-            for( int i = 0; i < tam; i++ ) {
-                System.out.println( (i+1) + ": " + lista.get(i).getName() );
+        if (lista != null) {
+            System.out.println("\nLista de tarefas:");
+            int tam = lista.size();
+            for (int i = 0; i < tam; i++) {
+                System.out.println((i + 1) + ": " + lista.get(i).getName());
             }
         }
     }
 
     private static void listarCategorias(List<Categoria> lista) {
-        if( lista != null ) {
-            System.out.println( "\nLista de categorias:" );
-            int tam = lista.size( );
-            for( int i = 0; i < tam; i++ ) {
-                System.out.println( (i+1) + ": " + lista.get(i).getNome() );
+        if (lista != null) {
+            System.out.println("\nLista de categorias:");
+            int tam = lista.size();
+            for (int i = 0; i < tam; i++) {
+                System.out.println((i + 1) + ": " + lista.get(i).getNome());
             }
         }
     }
 
-    public static Tarefa lerTarefa(){
+    public static Tarefa lerTarefa() {
         Tarefa tarefa = null;
         try {
-            List<Categoria> categorias = arqCategorias.readAll( );
+            List<Categoria> categorias = arqCategorias.readAll();
 
-            if( categorias.isEmpty()) {
+            if (categorias.isEmpty()) {
                 System.out.println("Não há categorias cadastradas!");
-            } 
-            else {
-                System.out.print( "\nNome: " );
-                String nome = console.nextLine( );
+            } else {
+                System.out.print("\nNome: ");
+                String nome = console.nextLine();
 
-                if( nome.length( ) > 0 ) {
+                if (nome.length() > 0) {
                     LocalDate dataCriacao = null;
-                    while( dataCriacao == null ) {
-                        System.out.print( "\nData de Criação (dd/MM/yyyy): " );
-                        String dc1 = console.nextLine( );
+                    while (dataCriacao == null) {
+                        System.out.print("\nData de Criação (dd/MM/yyyy): ");
+                        String dc1 = console.nextLine();
                         dataCriacao = formatarData(dc1);
                     }
 
                     LocalDate dataConclusao = null;
-                    while( dataConclusao == null ) {
-                        System.out.print( "\nData de Conclusão (dd/MM/yyyy): " );
-                        String dc2 = console.nextLine( );
-                        dataConclusao = formatarData( dc2 );
+                    while (dataConclusao == null) {
+                        System.out.print("\nData de Conclusão (dd/MM/yyyy): ");
+                        String dc2 = console.nextLine();
+                        dataConclusao = formatarData(dc2);
                     }
 
                     byte status = 0;
-                    while( status < 1 || status > 5 ) {
+                    while (status < 1 || status > 5) {
                         listarStatus();
                         try {
-                            status = Byte.parseByte( console.nextLine( ) );
-                            if( status < 1 || status > 5 ) {
+                            status = Byte.parseByte(console.nextLine());
+                            if (status < 1 || status > 5) {
                                 System.out.println("Status inválido! Escolha um valor entre 1 e 5.");
                             }
-                        } catch( NumberFormatException e ) {
+                        } catch (NumberFormatException e) {
                             System.out.println("Entrada inválida! Por favor, insira um número.");
-                        } 
+                        }
                     }
 
                     byte prioridade = 0;
-                    while( prioridade < 1 || prioridade > 5 ) {
+                    while (prioridade < 1 || prioridade > 5) {
                         listarPrioridades();
                         try {
-                            prioridade = Byte.parseByte( console.nextLine() );
-                            if( prioridade < 1 || prioridade > 5 ) {
+                            prioridade = Byte.parseByte(console.nextLine());
+                            if (prioridade < 1 || prioridade > 5) {
                                 System.out.println("Prioridade inválida! Escolha um valor entre 1 e 5.");
                             }
-                        } catch( NumberFormatException e ) {
+                        } catch (NumberFormatException e) {
                             System.out.println("Entrada inválida! Por favor, insira um número.");
                         }
-                    } 
+                    }
 
-                    listarCategorias( categorias );
+                    listarCategorias(categorias);
                     int idCategoria = -1;
-                    while( idCategoria < 0 || idCategoria > categorias.size() ) {
+                    while (idCategoria < 0 || idCategoria > categorias.size()) {
                         System.out.print("Categoria (ID): ");
                         try {
-                            idCategoria = Integer.parseInt( console.nextLine() );
-                            if( idCategoria < 0 || idCategoria > categorias.size( ) ) {
+                            idCategoria = Integer.parseInt(console.nextLine());
+                            if (idCategoria < 0 || idCategoria > categorias.size()) {
                                 System.out.println("ID de categoria inválido!");
                             }
-                        } catch( NumberFormatException e ) {
+                        } catch (NumberFormatException e) {
                             System.out.println("Entrada inválida! Por favor, insira um número.");
-                        } 
+                        }
                     }
 
                     tarefa = new Tarefa(nome, dataCriacao, dataConclusao, status, prioridade, idCategoria);
                 } else {
                     System.out.println("Operação cancelada!");
-                } 
+                }
             }
-        } catch( Exception e ) {
+        } catch (Exception e) {
             System.out.println("\nErro ao ler tarefa!");
         }
         return tarefa;
     }
 
     public static void incluirTarefa() {
-        System.out.println( "\n> Incluir Tarefa:" );
+        System.out.println("\n> Incluir Tarefa:");
         try {
             Tarefa novaTarefa = lerTarefa();
-            if(novaTarefa != null) {
-                System.out.println( "\nConfirma inclusão da tarefa? (S/N)" );
+            if (novaTarefa != null) {
+                System.out.println("\nConfirma inclusão da tarefa? (S/N)");
                 char resp = console.nextLine().charAt(0);
-            
-                if( resp == 'S' || resp == 's' ) {
+
+                if (resp == 'S' || resp == 's') {
                     try {
                         arqTarefas.create(novaTarefa);
                         System.out.println("Tarefa incluída com sucesso!");
-                    } catch( Exception e ) {
+                    } catch (Exception e) {
                         System.out.println("Erro do sistema. Não foi possível criar a tarefa!");
                     }
                 } else {
                     System.out.println("Inclusão cancelada!");
                 }
             }
-        } catch( Exception e ) {
+        } catch (Exception e) {
             System.out.println("Erro ao incluir tarefa!");
         }
     }
 
-    public static void buscarTarefa( )
-    {
-        System.out.println( "\n> Buscar Tarefa:" );
-        
+    public static void buscarTarefa() {
+        System.out.println("\n> Buscar Tarefa:");
+
         try {
-            List<Tarefa> lista = arqTarefas.readAll( );
+            List<Tarefa> lista = arqTarefas.readAll();
 
-            if( lista.isEmpty( ) ) {
+            if (lista.isEmpty()) {
                 System.out.println("Não há tarefas cadastrada.");
-            } 
-            else {
-                listarTarefas( lista );
+            } else {
+                listarTarefas(lista);
 
-                System.out.print( "ID da Tarefa: " );
-                String input = console.nextLine(); 
-                
-                if( input.length() > 0 ){
+                System.out.print("ID da Tarefa: ");
+                String input = console.nextLine();
+
+                if (input.length() > 0) {
                     Tarefa tarefaEncontrada = null;
                     boolean encontrada = false;
-                    int tam = lista.size( );
+                    int tam = lista.size();
                     int id = Integer.parseInt(input);
-                    for( int i = 0; i < tam && !encontrada; i++ ){
-                        if( lista.get(i).getId() == id ){ 
+                    for (int i = 0; i < tam && !encontrada; i++) {
+                        if (lista.get(i).getId() == id) {
                             tarefaEncontrada = lista.get(i);
                             encontrada = true;
                         }
                     }
-        
-                    if( tarefaEncontrada != null ) {
+
+                    if (tarefaEncontrada != null) {
                         System.out.println(tarefaEncontrada);
                     } else {
                         System.out.println("Tarefa não encontrada.");
@@ -265,7 +259,7 @@ public class MenuTarefas extends Principal
                 }
             }
 
-        } catch( Exception e ) {
+        } catch (Exception e) {
             System.err.println("Erro no sistema. Não foi possível buscar a tarefa!");
         }
     }
@@ -273,39 +267,36 @@ public class MenuTarefas extends Principal
     public static void alterarTarefa() {
         System.out.println("\n> Alterar Tarefa:");
 
-        try 
-        {
-            List<Tarefa> lista = arqTarefas.readAll( );
+        try {
+            List<Tarefa> lista = arqTarefas.readAll();
 
-            if( lista.isEmpty( ) ) {
+            if (lista.isEmpty()) {
                 System.out.println("Não há tarefa cadastrada.");
-            } 
-            else{
-                listarTarefas( lista );
+            } else {
+                listarTarefas(lista);
 
                 System.out.print("ID da Tarefa: ");
-                String input = console.nextLine( );
+                String input = console.nextLine();
 
-                if( input.length() > 0 ) 
-                {
+                if (input.length() > 0) {
                     Tarefa tarefaEncontrada = null;
                     boolean encontrada = false;
                     int tam = lista.size();
                     int id = Integer.parseInt(input);
-                    for( int i = 0; i < tam && !encontrada; i++ ) {
-                        if( lista.get(i).getId() == id ){
+                    for (int i = 0; i < tam && !encontrada; i++) {
+                        if (lista.get(i).getId() == id) {
                             tarefaEncontrada = lista.get(i);
                             encontrada = true;
                         }
                     }
 
-                    if( tarefaEncontrada != null ) {
-                        System.out.print( "\nInforme os novos dados:" );
-                        Tarefa novaTarefa = lerTarefa( );
+                    if (tarefaEncontrada != null) {
+                        System.out.print("\nInforme os novos dados:");
+                        Tarefa novaTarefa = lerTarefa();
 
-                        if( novaTarefa != null && novaTarefa.getName().length() > 0 ) {
-                            novaTarefa.setId( tarefaEncontrada.getId() );
-                            arqTarefas.update( novaTarefa );
+                        if (novaTarefa != null && novaTarefa.getName().length() > 0) {
+                            novaTarefa.setId(tarefaEncontrada.getId());
+                            arqTarefas.update(novaTarefa);
                             System.out.println("Tarefa alterada com sucesso.");
                         } else {
                             System.out.println("Operação cancelada!");
@@ -317,51 +308,49 @@ public class MenuTarefas extends Principal
                     System.out.println("Operação cancelada!");
                 }
             }
-        } catch( Exception e ) {
+        } catch (Exception e) {
             System.out.println("Erro no sistema. Não foi possível alterar a Tarefa!");
-            e.printStackTrace( );
+            e.printStackTrace();
         }
     }
 
-    public static void excluirTarefa () {
+    public static void excluirTarefa() {
         System.out.println("\n> Excluir Tarefa:");
 
         try {
             List<Tarefa> lista = arqTarefas.readAll();
 
-            if( lista.isEmpty() ) {
+            if (lista.isEmpty()) {
                 System.out.println("Não há tarefa cadastrada.");
-            } 
-            else {
-                listarTarefas( lista );
+            } else {
+                listarTarefas(lista);
 
                 System.out.print("ID da tarefa: ");
                 String input = console.nextLine();
 
-                if( input.length() > 0 ) {
+                if (input.length() > 0) {
                     Tarefa tarefaEncontrada = null;
                     boolean encontrada = false;
                     int tam = lista.size();
                     int id = Integer.parseInt(input);
-                    for( int i = 0; i < tam && !encontrada; i++ ) 
-                    {
-                        if( lista.get(i).getId() == id ) {
+                    for (int i = 0; i < tam && !encontrada; i++) {
+                        if (lista.get(i).getId() == id) {
                             tarefaEncontrada = lista.get(i);
                             encontrada = true;
                         }
-                    } 
+                    }
 
-                    if( tarefaEncontrada != null ) {
+                    if (tarefaEncontrada != null) {
                         System.out.print("\nTarefa:");
                         System.out.println(tarefaEncontrada);
 
                         System.out.println("\nConfirma a exclusão da tarefa? (S/N)");
                         char resp = console.nextLine().charAt(0);
 
-                        if( resp == 'S' || resp == 's' ) {
-                            boolean sucesso = arqTarefas.delete( tarefaEncontrada.getId() );
+                        if (resp == 'S' || resp == 's') {
+                            boolean sucesso = arqTarefas.delete(tarefaEncontrada.getId());
 
-                            if( sucesso ) {
+                            if (sucesso) {
                                 System.out.println("Tarefa excluída com sucesso.");
                             } else {
                                 System.out.println("Erro: Não foi possível excluir a tarefa.");
@@ -374,35 +363,33 @@ public class MenuTarefas extends Principal
                     System.out.println("Operação cancelada!");
                 }
             }
-        } catch( Exception e ) {
+        } catch (Exception e) {
             System.out.println("Erro no sistema. Não foi possível excluir a tarefa!");
         }
     }
-    public static boolean buscarTarefaPorCategoria( )
-    {
+
+    public static boolean buscarTarefaPorCategoria() {
         boolean result = false;
-        System.out.println( "\n> Buscar Tarefa por Categoria:" );
+        System.out.println("\n> Buscar Tarefa por Categoria:");
 
         try {
-            List<Categoria> categorias = arqCategorias.readAll( );
+            List<Categoria> categorias = arqCategorias.readAll();
 
-            if(categorias.isEmpty()) {
+            if (categorias.isEmpty()) {
                 System.out.println("Não há categorias cadastradas!");
-            }
-            else{
-                listarCategorias( categorias );
-                System.out.print( "ID da Categoria: " );
+            } else {
+                listarCategorias(categorias);
+                System.out.print("ID da Categoria: ");
                 int idCategoria = Integer.parseInt(console.nextLine());
-                
-                if(idCategoria > 0) {
-                    List<Tarefa> tarefas = arqTarefas.readAll( idCategoria );
 
-                    if(tarefas.isEmpty()){
+                if (idCategoria > 0) {
+                    List<Tarefa> tarefas = arqTarefas.readAll(idCategoria);
+
+                    if (tarefas.isEmpty()) {
                         System.out.println("Não há tarefas cadastradas!");
-                    } 
-                    else{
-                        System.out.println( "\nLista de tarefas:" );
-                        for(Tarefa tarefa : tarefas ){
+                    } else {
+                        System.out.println("\nLista de tarefas:");
+                        for (Tarefa tarefa : tarefas) {
                             System.out.println(tarefa);
                         }
                         result = true;
@@ -411,7 +398,7 @@ public class MenuTarefas extends Principal
                     System.out.println("ID inválido!");
                 }
             }
-        } catch( Exception e ) {
+        } catch (Exception e) {
             System.out.println("Erro no sistema. Não foi possível buscar tarefa!");
         }
 

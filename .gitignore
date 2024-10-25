@@ -1,0 +1,5 @@
+# Ignorar arquivos com extensão .idx
+*.idx
+
+# Ignorar arquivos com extensão .db
+*.db

@@ -1,4 +1,5 @@
 package app.entidades;
+
 import java.io.*;
 
 import app.registros.Registro;
@@ -51,5 +52,10 @@ public class Categoria implements Registro {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Categoria [id=" + id + ", nome=" + nome + "]";
     }
 }
