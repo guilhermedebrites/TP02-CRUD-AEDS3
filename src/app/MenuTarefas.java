@@ -34,7 +34,7 @@ public class MenuTarefas extends Principal {
     }
 
     protected static void opcoes_menu() {
-        System.out.println("\nAEDs-III 1.0           ");
+        System.out.println("\nPUCTAREFA 1.0           ");
         System.out.println("-------------------------");
         System.out.println("> Início > Tarefas       ");
         System.out.println("1 - Buscar               ");
@@ -77,13 +77,13 @@ public class MenuTarefas extends Principal {
         try {
             data = LocalDate.parse(dataEmString, formatter);
         } catch (DateTimeParseException e) {
-            System.out.println("\nFormato de data inválido. Por favor, use o formato dd/MM/yyyy.");
+            System.out.println("\nPor favor, use o formato dd/MM/yyyy.");
         }
         return data;
     }
 
     private static void listarStatus() {
-        System.out.println("\nEscolha um status:");
+        System.out.println("\nEscolha uma opção:");
         System.out.println("1 - Pendente        ");
         System.out.println("2 - Em Andamento    ");
         System.out.println("3 - Concluída       ");
@@ -154,10 +154,10 @@ public class MenuTarefas extends Principal {
                         try {
                             status = Byte.parseByte(console.nextLine());
                             if (status < 1 || status > 5) {
-                                System.out.println("Status inválido! Escolha um valor entre 1 e 5.");
+                                System.out.println("Escolha um valor entre 1 e 5.");
                             }
                         } catch (NumberFormatException e) {
-                            System.out.println("Entrada inválida! Por favor, insira um número.");
+                            System.out.println("Insira um número.");
                         }
                     }
 
@@ -167,10 +167,10 @@ public class MenuTarefas extends Principal {
                         try {
                             prioridade = Byte.parseByte(console.nextLine());
                             if (prioridade < 1 || prioridade > 5) {
-                                System.out.println("Prioridade inválida! Escolha um valor entre 1 e 5.");
+                                System.out.println("Escolha um valor entre 1 e 5.");
                             }
                         } catch (NumberFormatException e) {
-                            System.out.println("Entrada inválida! Por favor, insira um número.");
+                            System.out.println("Insira um número.");
                         }
                     }
 
@@ -181,10 +181,10 @@ public class MenuTarefas extends Principal {
                         try {
                             idCategoria = Integer.parseInt(console.nextLine());
                             if (idCategoria < 0 || idCategoria > categorias.size()) {
-                                System.out.println("ID de categoria inválido!");
+                                System.out.println("ID inválido!");
                             }
                         } catch (NumberFormatException e) {
-                            System.out.println("Entrada inválida! Por favor, insira um número.");
+                            System.out.println("Insira um número.");
                         }
                     }
 
@@ -204,7 +204,7 @@ public class MenuTarefas extends Principal {
         try {
             Tarefa novaTarefa = lerTarefa();
             if (novaTarefa != null) {
-                System.out.println("\nConfirma inclusão da tarefa? (S/N)");
+                System.out.println("\nConfirma inclusão? (S/N)");
                 char resp = console.nextLine().charAt(0);
 
                 if (resp == 'S' || resp == 's') {
@@ -212,7 +212,7 @@ public class MenuTarefas extends Principal {
                         arqTarefas.create(novaTarefa);
                         System.out.println("Tarefa incluída com sucesso!");
                     } catch (Exception e) {
-                        System.out.println("Erro do sistema. Não foi possível criar a tarefa!");
+                        System.out.println("Não foi possível criar a tarefa!");
                     }
                 } else {
                     System.out.println("Inclusão cancelada!");
@@ -260,7 +260,7 @@ public class MenuTarefas extends Principal {
             }
 
         } catch (Exception e) {
-            System.err.println("Erro no sistema. Não foi possível buscar a tarefa!");
+            System.err.println("Não foi possível buscar a tarefa!");
         }
     }
 
@@ -297,7 +297,7 @@ public class MenuTarefas extends Principal {
                         if (novaTarefa != null && novaTarefa.getName().length() > 0) {
                             novaTarefa.setId(tarefaEncontrada.getId());
                             arqTarefas.update(novaTarefa);
-                            System.out.println("Tarefa alterada com sucesso.");
+                            System.out.println("Tarefa alterada.");
                         } else {
                             System.out.println("Operação cancelada!");
                         }
@@ -309,7 +309,7 @@ public class MenuTarefas extends Principal {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Erro no sistema. Não foi possível alterar a Tarefa!");
+            System.out.println("Não foi possível alterar a Tarefa!");
             e.printStackTrace();
         }
     }
@@ -344,14 +344,14 @@ public class MenuTarefas extends Principal {
                         System.out.print("\nTarefa:");
                         System.out.println(tarefaEncontrada);
 
-                        System.out.println("\nConfirma a exclusão da tarefa? (S/N)");
+                        System.out.println("\nConfirma a exclusão? (S/N)");
                         char resp = console.nextLine().charAt(0);
 
                         if (resp == 'S' || resp == 's') {
                             boolean sucesso = arqTarefas.delete(tarefaEncontrada.getId());
 
                             if (sucesso) {
-                                System.out.println("Tarefa excluída com sucesso.");
+                                System.out.println("Tarefa excluída.");
                             } else {
                                 System.out.println("Erro: Não foi possível excluir a tarefa.");
                             }
@@ -364,7 +364,7 @@ public class MenuTarefas extends Principal {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Erro no sistema. Não foi possível excluir a tarefa!");
+            System.out.println("Não foi possível excluir a tarefa!");
         }
     }
 
@@ -399,7 +399,7 @@ public class MenuTarefas extends Principal {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Erro no sistema. Não foi possível buscar tarefa!");
+            System.out.println("Não foi possível buscar tarefa!");
         }
 
         return result;

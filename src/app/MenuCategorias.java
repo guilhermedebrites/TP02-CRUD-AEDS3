@@ -146,7 +146,7 @@ public class MenuCategorias extends Principal {
             }
 
         } catch (Exception e) {
-            System.err.println("Erro no sistema. Não foi possível buscar a categoria!");
+            System.err.println("Não foi possível buscar a categoria!");
         }
     }
 
@@ -195,7 +195,7 @@ public class MenuCategorias extends Principal {
             }
 
         } catch (Exception e) {
-            System.out.println("Erro no sistema. Não foi possível alterar a categoria!");
+            System.out.println("Não foi possível alterar a categoria!");
         }
     }
 
@@ -229,7 +229,7 @@ public class MenuCategorias extends Principal {
                         System.out.print("\nCategoria:");
                         System.out.println(categoriaEncontrada);
 
-                        System.out.println("\nConfirma a exclusão da categoria? (S/N)");
+                        System.out.println("\nConfirma a exclusão? (S/N)");
                         char resp = console.nextLine().charAt(0);
 
                         if (resp == 'S' || resp == 's') {
@@ -238,7 +238,7 @@ public class MenuCategorias extends Principal {
                             if (sucesso) {
                                 System.out.println("Categoria excluída com sucesso.");
                             } else {
-                                System.out.println("Erro: Não foi possível excluir a categoria.");
+                                System.out.println("Não foi possível excluir a categoria.");
                             }
                         }
                     } else {
@@ -250,7 +250,7 @@ public class MenuCategorias extends Principal {
             }
 
         } catch (Exception e) {
-            System.out.println("Erro no sistema. Não foi possível excluir a categoria!");
+            System.out.println("Não foi possível excluir a categoria!");
         }
     }
 }
